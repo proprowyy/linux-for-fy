@@ -165,19 +165,9 @@
 		mux-ext-port = <3>; 	/* AUD3, just see pinctrl of audmux */
 		hp-det-gpios = <&gpio7 8 1>;	/* used, but not implemented */
 		mic-det-gpios = <&gpio1 9 1>;	/* not used */
+		status ="disabled";
 	};
-/*
-	sound-fm {
-		compatible = "fsl,imx-audio-si476x",
-			   "fsl,imx-tuner-si476x";
-		model = "imx-radio-si4763";
 
-		ssi-controller = <&ssi2>;
-		fm-controller = <&si476x_codec>;
-		mux-int-port = <2>;
-		mux-ext-port = <5>;
-	};
-*/
 	sound-hdmi {
 		compatible = "fsl,imx6q-audio-hdmi",
 			     "fsl,imx-audio-hdmi";
@@ -187,9 +177,10 @@
 
 	mxcfb1: fb@0 {
 		compatible = "fsl,mxc_sdc_fb";
-		disp_dev = "ldb";
-		interface_pix_fmt = "RGB666";
-		default_bpp = <16>;
+		disp_dev = "hdmi";
+		interface_pix_fmt = "RGB24";
+		default_bpp = <24>;
+		mode_str ="1920x1080M@60";
 		int_clk = <0>;
 		late_init = <0>;
 		status = "disabled";
@@ -249,7 +240,7 @@
 		ipu_id = <0>;
 		csi_id = <0>;
 		mclk_source = <0>;
-		status = "okay";
+		status = "disabled";
 	};
 
 	v4l2_cap_1 {
@@ -282,8 +273,7 @@
 
 &cpu0 {
 	arm-supply = <&sw1a_reg>;
-	soc-supply = <&sw1c_reg>;
-	pu-supply = <&pu_dummy>; /* use pu_dummy if VDDSOC share with VDDPU */
+	soc-supply = <&sw1c_reg>; /* use pu_dummy if VDDSOC share with VDDPU */
 };
 
 &ecspi1 {
@@ -316,7 +306,7 @@
 	fsl,cpu_pdnscr_iso = <0x1>;
 	fsl,ldo-bypass = <1>; /* use ldo-bypass, u-boot will check it and configure */
 	fsl,wdog-reset = <2>; /* watchdog select of reset source */
-	pu-supply = <&pu_dummy>; /* ldo-bypass:use pu_dummy if VDDSOC share with VDDPU */
+	                     /* ldo-bypass:use pu_dummy if VDDSOC share with VDDPU */
 };
 
 &wdog1 {
@@ -325,10 +315,6 @@
 
 &wdog2 {
 	status = "okay";
-};
-
-&gpu {			
-		 /* ldo-bypass:use pu_dummy if VDDSOC share with VDDPU*/ 
 };
 &hdmi_audio {
 	status = "okay";
@@ -513,6 +499,8 @@
 				MX6QDL_PAD_GPIO_1__WDOG2_B 0x80000000
 				MX6QDL_PAD_GPIO_2__GPIO1_IO02 0x80000000
 				MX6QDL_PAD_SD1_CMD__GPIO1_IO18 0x80000000
+				MX6QDL_PAD_DISP0_DAT15__GPIO5_IO09 0x80000000
+				MX6QDL_PAD_DISP0_DAT13__GPIO5_IO07 0x80000000
 			>;
 		};
 	};
@@ -635,7 +623,7 @@
 
 &usbh1 {
 	vbus-supply = <&reg_usb_h1_vbus>;
-	status = "disable";
+	status = "okay";
 };
 
 &usbotg {
@@ -656,3 +644,4 @@
 	keep-power-in-suspend;
         status = "okay";
 };
+
