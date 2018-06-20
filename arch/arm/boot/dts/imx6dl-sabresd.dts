@@ -291,9 +291,10 @@
 	status = "okay";
 };
 
-&flexcan1 {
+&flexcan1{
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_flexcan1_0>;
-	status = "okay";
+	trx-stby-gpio=<&gpio4 5 GPIO_ACTIVE_LOW>;
+		status = "okay";
 };
 

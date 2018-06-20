@@ -34,6 +34,7 @@
 		serial4 = &uart5;
 		usbphy0 = &usbphy1;
 		usbphy1 = &usbphy2;
+		can_t    =&flexcan1;
 	};
 	/*
 	#interrupt-cells = <3>;
