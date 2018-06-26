@@ -305,16 +305,16 @@
 	fsl,cpu_pdnscr_iso2sw = <0x1>;
 	fsl,cpu_pdnscr_iso = <0x1>;
 	fsl,ldo-bypass = <1>; /* use ldo-bypass, u-boot will check it and configure */
-	fsl,wdog-reset = <2>; /* watchdog select of reset source */
+	fsl,wdog-reset = <1>; /* watchdog select of reset source */
 	                     /* ldo-bypass:use pu_dummy if VDDSOC share with VDDPU */
 };
 
 &wdog1 {
-	status = "disabled";
+	status = "okay";
 };
 
 &wdog2 {
-	status = "okay";
+	status = "disabled";
 };
 &hdmi_audio {
 	status = "okay";
